@@ -1,0 +1,15 @@
+You will use 3 character arrays:
+• Jumbled word
+• Solution word
+• Guess word
+• The jumbled word and the solution word will be read from an input file
+• The user will be presented with the jumbled word
+• The user will have 3 chances to guess the word
+• If the user does not guess the word on the first guess, the first and last letters will be provided
+• See the sample output below
+• Be sure to greet the user and say goodbye to the user
+• Be sure to change all 3 character arrays to all uppercase letters –
+• use the toupper function from ctype.h, one character at a time
+• You will use %s to scanf (no &) and print the words
+• You will use the strlen and strcmp functions from string.h
+• You will use a do/while loop in the main function

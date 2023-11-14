@@ -1,0 +1,45 @@
+Algorithm: Wordle Guessing Game
+
+1. Initialize three character arrays:
+   - jumbledWord (jumbledWord) 
+   - solutionWord (solutionWord)
+   - guessWord (guessWord)
+
+2. Open an input file and read the jumbledWord and solutionWord from the files.
+   - Use fscanf to read the words from the file into the corresponding arrays.
+   - Close jumbledWord and solutionWord files.
+   - Convert each character to uppercase using toupper function.
+
+3. Greet the user:
+   - Print a welcome message.
+
+4. Set the number of chances (chancesLeft) to 3.
+
+5. Start a do/while loop:
+   - Print the jumbled word for the user to guess.
+
+   - Prompt the user to enter their guess:
+      > Read user input and save into guessWord.
+
+   - Convert each character of guessWord to uppercase.
+
+   - Compare the guessWord with the solutionWord using strcmp.
+
+   - If the guess is correct:
+      > Print a congratulatory message.
+      > Exit the loop.
+
+   - If the guess is incorrect:
+      > Decrement chancesLeft.
+      > Provide hint on first attempt 
+        - HINT: print the first and last letters of the solutionWord.
+      > Print the remaining chances.
+
+   - If chancesLeft is zero:
+      > Print a message indicating that the user has run out of chances.
+      > Print the correct solution.
+
+6. Say goodbye to the user:
+   - Print a farewell message.
+
+7. Close the input file.
