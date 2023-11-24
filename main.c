@@ -1,7 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS //for Visual studio compiler
 #pragma warning(disable:6031) //ignore scanf warnings
-#include<stdio.h> //for printf and scanf
-#include<string.h> //for strlen and strcmp functions
+#include <stdio.h> //for printf and scanf
+#include <string.h> //for strlen and strcmp functions
+#include <ctype.h> //for tolower and toupper functions
 #define SIZE 25 //size of the character arrays is 25
 
 //function prototypes
@@ -21,23 +22,32 @@ void WinOrLose(int win);
 //tells the user they won if the input is 1 and they lost if the input is 0
 
 int main(){
-    char jumbledWord[SIZE], solutionWord[SIZE], guessWord[SIZE];
-
+    char again, jumbledWord[SIZE], solutionWord[SIZE], guessWord[SIZE];
     FILE *in_JumbledWordsPntr;
     in_JumbledWordsPntr = fopen("./jumbledWords.txt", "r");
         if(in_JumbledWordsPntr == NULL){
             printf("ERROR IMPORTING FILE");
             return 1;
         };
-    fscanf(in_JumbledWordsPntr, "%s", jumbledWord); //First Line
-    fscanf(in_JumbledWordsPntr, "%s", solutionWord); //Second Line
+    do {
+        fscanf(in_JumbledWordsPntr, "%s", jumbledWord); //First Line
+        fscanf(in_JumbledWordsPntr, "%s", solutionWord); //Second Line
+
+        UppercaseWord(jumbledWord);
+        UppercaseWord(solutionWord);
+        
+
+        // printf("\nJUMBLED WORD: %s \n\n", jumbledWord);
+        // printf("\nSOLUTION WORD: %s \n\n", solutionWord);
+
+        Instructions();
+        PlayOneGame(jumbledWord, solutionWord);
+
+        PlayAgain(&again);
+    } while (again == 'Y' || again == 'y');
+
     fclose(in_JumbledWordsPntr);
-
-    // printf("\nJUMBLED WORD: %s \n\n", jumbledWord);
-    // printf("\nSOLUTION WORD: %s \n\n", solutionWord);
-
-    Instructions();
-
+    
     return 0;
 }
 
@@ -47,25 +57,40 @@ void Instructions(){
 };
 
 void PlayOneGame(char jumbled[], char solution[]){
-//input: solution word and scrambled word
-//plays one round ot the game
+        char userGuess[SIZE];
+    //input: solution word and scrambled word
+    //plays one round ot the game
+
+    printf("JUMBLED WORD: %s\n", jumbled);
+    printf("User Guess: "); scanf("%s", userGuess);
+
+    UppercaseWord(userGuess);
+
+    if(strcmp(userGuess, solution) == 0){ 
+        printf("YOU WOOOOOON");
+        };
+    // printf("USER GUESS %s", userGuess);
 
 };
 
 void PlayAgain(char* againPtr){
-
-//input: character (input/ouptput) parameter
-//determines if the player would like to play again.
+    //input: character (input/ouptput) parameter
+    //determines if the player would like to play again.
+    printf("\nWould you like to play again (y or n)\n");
+    scanf(" %c", againPtr);
 };
 
 void UppercaseWord(char word[]){
-
-//input: a character array with a null character (string)
-//sets all of the characters in a word to uppercase letters
+    int len = strlen(word);
+    for(int i = 0; i < len; i++){
+        word[i] = toupper(word[i]); //arrays are pointers
+    }
+    //input: a character array with a null character (string)
+    //sets all of the characters in a word to uppercase letters
 };
 
 void WinOrLose(int win){
 
-//input a 1 or a 0
-//tells the user they won if the input is 1 and they lost if the input is 0
+    //input a 1 or a 0
+    //tells the user they won if the input is 1 and they lost if the input is 0
 };
