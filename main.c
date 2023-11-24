@@ -46,8 +46,9 @@ int main(){
         PlayAgain(&again);
     } while (again == 'Y' || again == 'y');
 
+    printf("Thank you for playing!");
     fclose(in_JumbledWordsPntr);
-    
+
     return 0;
 }
 
@@ -58,16 +59,32 @@ void Instructions(){
 
 void PlayOneGame(char jumbled[], char solution[]){
         char userGuess[SIZE];
+        int attempt = 1;
+        int solutionLen = strlen(solution);
     //input: solution word and scrambled word
     //plays one round ot the game
 
-    printf("JUMBLED WORD: %s\n", jumbled);
-    printf("User Guess: "); scanf("%s", userGuess);
+    
 
-    UppercaseWord(userGuess);
+    printf("There are %d letters in the word\n", solutionLen);
+    printf("JUMBLED WORD: %s", jumbled);
+    do{
+        if(attempt > 1){
+            printf("%s is not correct\n", userGuess);
+            printf("First and last letter are %c, %c respectivley", solution[0], solution[solutionLen-1]);
+        } 
+
+        printf("\nAttempt %d. Input Guess: ", attempt); 
+        scanf("%s", userGuess);
+        UppercaseWord(userGuess);
+
+        attempt++;
+    } while (strcmp(userGuess, solution) !=0 && attempt != 4);
 
     if(strcmp(userGuess, solution) == 0){ 
-        printf("YOU WOOOOOON");
+        WinOrLose(1);
+        } else {
+            WinOrLose(0);
         };
     // printf("USER GUESS %s", userGuess);
 
@@ -76,7 +93,7 @@ void PlayOneGame(char jumbled[], char solution[]){
 void PlayAgain(char* againPtr){
     //input: character (input/ouptput) parameter
     //determines if the player would like to play again.
-    printf("\nWould you like to play again (y or n)\n");
+    printf("\nWould you like to play again (y or n)? : ");
     scanf(" %c", againPtr);
 };
 
@@ -93,4 +110,11 @@ void WinOrLose(int win){
 
     //input a 1 or a 0
     //tells the user they won if the input is 1 and they lost if the input is 0
+    if(win == 1){
+        printf("Congradulations! You have won.");
+    } else if (win == 0) {
+        printf("You did not win");
+    }else {
+        printf("ERROR");
+    };
 };
